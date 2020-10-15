@@ -27,9 +27,16 @@ public class CommandUpdate implements Command, Preparable{
      *
      */
 
-    Product product = null;
+    Product product;
     private String password;
     private String login;
+
+    public CommandUpdate() {
+    }
+
+    public CommandUpdate(Product product){
+        this.product = product;
+    }
 
     @Override
     public String execute(String[] args) {
@@ -77,7 +84,7 @@ public class CommandUpdate implements Command, Preparable{
     public void prepare(String[] args) {
         login = UserSession.getLogin();
         password = UserSession.getPassword();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        this.product = ReaderProductBuilder.buildProduct(reader);
+        if (product == null) {
+        }
     }
 }

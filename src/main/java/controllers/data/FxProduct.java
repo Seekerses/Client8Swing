@@ -2,12 +2,14 @@ package controllers.data;
 
 import clientserverdata.User;
 import javafx.beans.property.*;
+import productdata.Product;
 import productdata.UnitOfMeasure;
 
 import java.time.LocalDateTime;
 
 public class FxProduct {
 
+    private Product original;
     private SimpleStringProperty key;
     private SimpleLongProperty id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private SimpleStringProperty name; //Поле не может быть null, Строка не может быть пустой
@@ -18,7 +20,11 @@ public class FxProduct {
     private SimpleObjectProperty<FxOrganization> manufacturer; //Поле может быть null
     private SimpleObjectProperty<User> owner;
 
-    public FxProduct(SimpleStringProperty key, SimpleLongProperty id, SimpleStringProperty name, SimpleObjectProperty<FxCoordinates> coordinates, SimpleObjectProperty<LocalDateTime> creationDate, SimpleFloatProperty price, SimpleObjectProperty<UnitOfMeasure> unitOfMeasure, SimpleObjectProperty<FxOrganization> manufacturer, SimpleObjectProperty<User> owner) {
+    public FxProduct(SimpleStringProperty key, SimpleLongProperty id, SimpleStringProperty name,
+                     SimpleObjectProperty<FxCoordinates> coordinates, SimpleObjectProperty<LocalDateTime> creationDate,
+                     SimpleFloatProperty price, SimpleObjectProperty<UnitOfMeasure> unitOfMeasure,
+                     SimpleObjectProperty<FxOrganization> manufacturer, SimpleObjectProperty<User> owner,
+                     Product original) {
         this.key = key;
         this.id = id;
         this.name = name;
@@ -28,6 +34,7 @@ public class FxProduct {
         this.unitOfMeasure = unitOfMeasure;
         this.manufacturer = manufacturer;
         this.owner = owner;
+        this.original = original;
     }
 
     public long getId() {
@@ -140,5 +147,13 @@ public class FxProduct {
 
     public void setId(long id) {
         this.id.set(id);
+    }
+
+    public Product getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(Product original) {
+        this.original = original;
     }
 }

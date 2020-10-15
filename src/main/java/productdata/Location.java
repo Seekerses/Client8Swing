@@ -57,4 +57,27 @@ public class Location implements Serializable {
                 new SimpleLongProperty(z));
     }
 
+    public Long getX() {
+        return x;
+    }
+
+    public void setX(Long x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Long getZ() {
+        return z;
+    }
+
+    public void setZ(Long z) {
+        this.z = z;
+    }
 }

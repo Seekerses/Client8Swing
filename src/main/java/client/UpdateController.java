@@ -2,6 +2,7 @@ package client;
 
 import clientserverdata.Reply;
 import consolehandler.TableController;
+import controllers.data.TableFiller;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -27,7 +28,9 @@ public class UpdateController implements Runnable {
                 Reply update = Serializer.deserialize(receiver.getReply(updaterSocket));
 
                 TableController.getCurrentTable().setTable(update.getProducts());
+
                 System.out.println("Table updated");
+                TableFiller.fill();
             }
         } catch (SocketException e) {
             System.out.println("Troubles with updater.");

@@ -38,7 +38,7 @@ public class ClientInterpreter implements Interpreter {
                     }
                 }
                 Reply res = RequestManager.makeRequest(cmdList.getCommands().get(args[0]),arguments);
-                System.out.println(res.getAnswer());
+                System.out.println(res == null ? "" : res.getAnswer());
                 return res;
             } catch (NullPointerException e){
                 e.printStackTrace();

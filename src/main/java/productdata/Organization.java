@@ -119,4 +119,20 @@ public class Organization implements Serializable {
                 new SimpleObjectProperty<>(type),
                 new SimpleObjectProperty<>(postalAddress == null ? null : postalAddress.getFxAdress()));
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setType(OrganizationType type) {
+        this.type = type;
+    }
+
+    public void setPostalAddress(Address postalAddress) {
+        this.postalAddress = postalAddress;
+    }
 }

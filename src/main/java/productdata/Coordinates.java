@@ -61,4 +61,12 @@ public class Coordinates implements Serializable {
         return new FxCoordinates(new SimpleDoubleProperty(x),
                 new SimpleIntegerProperty(y));
     }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
+    }
 }

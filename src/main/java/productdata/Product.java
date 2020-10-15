@@ -160,9 +160,38 @@ public class Product implements Serializable {
                 new SimpleStringProperty(name),
                 new SimpleObjectProperty<controllers.data.FxCoordinates>(coordinates.getFxCoordinates()),
                 new SimpleObjectProperty<LocalDateTime>(creationDate),
-                new SimpleFloatProperty(price),
+                new SimpleFloatProperty(price == null ? 0 : price),
                 new SimpleObjectProperty<UnitOfMeasure>(unitOfMeasure),
                 new SimpleObjectProperty<controllers.data.FxOrganization>(manufacturer == null ? null : manufacturer.getFxOrganization()),
-                new SimpleObjectProperty<User>(owner));
+                new SimpleObjectProperty<User>(owner), this);
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public void setManufacturer(Organization manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

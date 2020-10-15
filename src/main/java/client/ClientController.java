@@ -53,19 +53,24 @@ public class ClientController {
                  return true;
              }
              else {
+                 clientSocket.close();
                  System.out.println("Connection failed. Please choose another port.");
              }
 
         }
         catch (SocketTimeoutException ex){
+            clientSocket.close();
             System.out.println("Chosen server is not responding. Please try again...\n");
         }
         catch (BindException e){
+            clientSocket.close();
             System.out.println("Your port already in use.");
         }
         catch (SocketException e){
+            clientSocket.close();
             System.out.println("Port is unavailable.");
         } catch (IOException e) {
+            clientSocket.close();
             System.out.println("Some IO errors occurs");
         } catch (InterruptedException e) {
             e.printStackTrace();

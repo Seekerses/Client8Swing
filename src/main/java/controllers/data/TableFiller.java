@@ -1,17 +1,21 @@
 package controllers.data;
 
 import consolehandler.TableController;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TableFiller {
 
-    public static void fill(){
-        ArrayList<FxProduct> temp = new ArrayList<>();
-        TableController.getCurrentTable().getTable().forEach((k,v) -> {
-            temp.add(v.getFxProduct());
+    public synchronized static void fill(){
+        Platform.runLater(() ->{
+            ArrayList<FxProduct> temp = new ArrayList<>();
+            TableController.getCurrentTable().getTable().forEach((k,v) -> {
+                temp.add(v.getFxProduct());
 
+            });
+            TableController.getFxProducts().setAll(temp);
         });
-        TableController.getFxProducts().setAll(temp);
     }
 }

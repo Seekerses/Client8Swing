@@ -44,4 +44,19 @@ public class Address implements Serializable {
                 new SimpleObjectProperty<controllers.data.FxLocation>(town == null ? null : town.getFxLocation()));
     }
 
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Location getTown() {
+        return town;
+    }
+
+    public void setTown(Location town) {
+        this.town = town;
+    }
 }

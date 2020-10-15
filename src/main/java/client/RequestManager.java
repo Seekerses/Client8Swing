@@ -74,4 +74,41 @@ public class RequestManager {
         }
         return  null;
     }
+
+    public static Reply makePreparedRequest(Command command){
+        if (command instanceof Preparable){
+            ((Preparable) command).prepare(null);
+        }
+        Reply result = ClientController.handleRequest(new Request(command, null, UserSession.getLogin(), UserSession.getPassword()));
+        if (command instanceof Registerable && result != null){
+            switch (result.getAnswer().split(",")[0]){
+                case "Approved" :
+                    UserSession.setLogin(result.getAnswer().split(",")[1]);
+                    UserSession.setPassword(result.getAnswer().split(",")[2]);
+                    System.out.println("You are logged in as " + UserSession.getLogin());
+                    break;
+                case "Wrong" :
+                    System.out.println("Wrong login or password" + UserSession.getLogin());
+                    break;
+                case "Existed" :
+                    System.out.println("User already exist, please use log in.");
+                    break;
+            }
+            return result;
+        }
+        if (result != null) {
+            if (result.getAnswer() != null) System.out.println(result.getAnswer());
+            if (result.getProducts() != null){
+                result.getProducts().forEach((k,v) -> {
+                    if ((k == null)) {
+                        System.out.print("");
+                    } else {
+                        System.out.println(v + " " + k);
+                    }
+                });
+            }
+            return result;
+        }
+        return  null;
+    }
 }
