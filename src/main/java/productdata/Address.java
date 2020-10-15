@@ -1,5 +1,9 @@
 package productdata;
 
+import controllers.data.FxAddress;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 
 /**
@@ -33,6 +37,11 @@ public class Address implements Serializable {
             return ((Address) obj).street.equals(street) && ((Address) obj).town.equals(town);
         }
         else return false;
+    }
+
+    public FxAddress getFxAdress(){
+        return new FxAddress(new SimpleStringProperty(street),
+                new SimpleObjectProperty<controllers.data.FxLocation>(town == null ? null : town.getFxLocation()));
     }
 
 }

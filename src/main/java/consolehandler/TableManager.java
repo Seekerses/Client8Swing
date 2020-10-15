@@ -172,4 +172,17 @@ public class TableManager {
     public void setTable(Hashtable<String, Product> table) {
         this.table = table;
     }
+
+    public Hashtable<String, Product> getTable() {
+        return table;
+    }
+
+    public String getKeyByValue(Product product){
+        for (Map.Entry<String, Product> entry : table.entrySet()) {
+            if (Objects.equals(product, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 }

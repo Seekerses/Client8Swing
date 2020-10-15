@@ -1,6 +1,9 @@
 package productdata;
 import clientserverdata.User;
+import consolehandler.TableController;
+import controllers.data.FxProduct;
 import exceptions.NegativePrice;
+import javafx.beans.property.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -145,5 +148,21 @@ public class Product implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public FxProduct getFxProduct(){
+        String key = TableController.getCurrentTable().getKeyByValue(this);
+        if(key == null){
+            key = "";
+        }
+        return new FxProduct(new SimpleStringProperty(key),
+                new SimpleLongProperty(id),
+                new SimpleStringProperty(name),
+                new SimpleObjectProperty<controllers.data.FxCoordinates>(coordinates.getFxCoordinates()),
+                new SimpleObjectProperty<LocalDateTime>(creationDate),
+                new SimpleFloatProperty(price),
+                new SimpleObjectProperty<UnitOfMeasure>(unitOfMeasure),
+                new SimpleObjectProperty<controllers.data.FxOrganization>(manufacturer == null ? null : manufacturer.getFxOrganization()),
+                new SimpleObjectProperty<User>(owner));
     }
 }

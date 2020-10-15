@@ -41,42 +41,36 @@ public class ClientController {
         return Serializer.deserialize(reply);
     }
 
-    public static void connect(){
+    public static boolean connect(){
         try {
-            if (port == null) {
-                System.out.print("Please enter a port that you want bind to:\n>");
-                port = changePort();
-                clientSocket = new DatagramSocket(port);
-                clientSocket.setSoTimeout(5000);
-            }
+            clientSocket = new DatagramSocket(port);
+            clientSocket.setSoTimeout(5000);
             setDestIP("localhost");
-            System.out.print("Please enter a port that you want connect to:\n>");
-            setDestPort(changePort());
-            System.out.println("Port has been successfully changed.");
+            new Thread(new UpdateController()).start();
+            Thread.sleep(1000);
             if(sendConnectingHandshake()){
                  System.out.println("Connection stabled.");
+                 return true;
              }
              else {
                  System.out.println("Connection failed. Please choose another port.");
-                 connect();
              }
-            CommandController.registration(new ClientInterpreter());
-            new Thread(new UpdateController()).start();
+
         }
         catch (SocketTimeoutException ex){
             System.out.println("Chosen server is not responding. Please try again...\n");
-            connect();
         }
         catch (BindException e){
             System.out.println("Your port already in use.");
-            connect();
         }
         catch (SocketException e){
             System.out.println("Port is unavailable.");
-            connect();
         } catch (IOException e) {
             System.out.println("Some IO errors occurs");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     private static boolean sendConnectingHandshake() throws IOException {
@@ -172,6 +166,10 @@ public class ClientController {
 
     public static Integer getPort() {
         return port;
+    }
+
+    public static void setPort(Integer port) {
+        ClientController.port = port;
     }
 }
 

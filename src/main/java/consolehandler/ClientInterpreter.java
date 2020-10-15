@@ -3,6 +3,7 @@ package consolehandler;
 
 
 import client.RequestManager;
+import clientserverdata.Reply;
 import consolehandler.cmdLists.CommandList;
 import consolehandler.cmdLists.StdCommandList;
 import java.util.Arrays;
@@ -21,9 +22,10 @@ public class ClientInterpreter implements Interpreter {
      * This method takes the command, separate it on command and arguments
      * and then interpret command according to the current Command List
      * @param args Command
+     * @return
      */
     @Override
-    public void handle(String[] args) {
+    public Reply handle(String[] args) {
         if (cmdList.getCommands().containsKey(args[0])) {
             try {
                 String[] arguments;
@@ -35,14 +37,18 @@ public class ClientInterpreter implements Interpreter {
                         arguments[i] = "";
                     }
                 }
-                RequestManager.makeRequest(cmdList.getCommands().get(args[0]),arguments);
+                Reply res = RequestManager.makeRequest(cmdList.getCommands().get(args[0]),arguments);
+                System.out.println(res.getAnswer());
+                return res;
             } catch (NullPointerException e){
                 e.printStackTrace();
                 System.out.println("Wrong arguments...");
+                return null;
             }
         }
         else {
             System.out.println("There is no such command. Enter help to see a list of available commands ..");
+            return null;
         }
     }
 

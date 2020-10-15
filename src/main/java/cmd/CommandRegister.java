@@ -19,6 +19,11 @@ public class CommandRegister implements Command, Preparable, Registerable {
 
     @Override
     public void prepare(String[] args) {
+        if (args != null){
+            login = args[0];
+            password = args[1];
+            return;
+        }
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter login:\n>");
         login = scanner.next().trim();

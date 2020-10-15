@@ -1,6 +1,10 @@
 package productdata;
+import controllers.data.FxOrganization;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.io.Serializable;
 
@@ -106,5 +110,13 @@ public class Organization implements Serializable {
 
     public static void setOrgId(int value){
         orgId = value;
+    }
+
+    public FxOrganization getFxOrganization(){
+        return new FxOrganization(new SimpleIntegerProperty(id),
+                new SimpleStringProperty(name),
+                new SimpleStringProperty(fullName),
+                new SimpleObjectProperty<>(type),
+                new SimpleObjectProperty<>(postalAddress == null ? null : postalAddress.getFxAdress()));
     }
 }

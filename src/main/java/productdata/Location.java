@@ -1,5 +1,9 @@
 package productdata;
 
+import controllers.data.FxLocation;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+
 import java.io.Serializable;
 
 /**
@@ -45,6 +49,12 @@ public class Location implements Serializable {
             return (((Location) obj).x.equals(x)  && ((Location) obj).y == y && ((Location) obj).z.equals(z));
         }
         else return false;
+    }
+
+    public FxLocation getFxLocation(){
+        return new FxLocation(new SimpleLongProperty(x),
+                new SimpleIntegerProperty(y),
+                new SimpleLongProperty(z));
     }
 
 }

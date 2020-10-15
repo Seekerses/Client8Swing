@@ -1,5 +1,10 @@
 package consolehandler;
 
+import controllers.data.FxProduct;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+
 import java.util.Hashtable;
 
 /**
@@ -11,9 +16,10 @@ public class TableController {
      * Keeps the Current table
      */
     private static TableManager currentTable;
+    private static ObservableList<FxProduct> fxproducts;
 
     /**
-     * Contains all existed tables
+     * Contains all existed tablesz
      */
     private static Hashtable<String,TableManager> tables = new Hashtable<>();
 
@@ -49,5 +55,13 @@ public class TableController {
      */
     public static TableManager get(String key){
         return tables.get(key);
+    }
+
+    public static ObservableList<FxProduct> getFxProducts() {
+        return fxproducts;
+    }
+
+    public static void setFxProducts(ObservableList<FxProduct> fxproducts) {
+        TableController.fxproducts = fxproducts;
     }
 }

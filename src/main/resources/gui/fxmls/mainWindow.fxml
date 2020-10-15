@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainWindow">
+   <children>
+      <AnchorPane layoutY="510.0" prefHeight="390.0" prefWidth="1100.0">
+         <children>
+            <TableView fx:id="table" prefHeight="390.0" prefWidth="1100.0">
+              <columns>
+                  <TableColumn fx:id="idCol" prefWidth="41.0" text="ID" />
+                <TableColumn fx:id="keyCol" prefWidth="62.0" text="Key" />
+                <TableColumn fx:id="nameCol" prefWidth="53.0" text="Name" />
+                  <TableColumn prefWidth="67.0" text="Coordinate X" fx:id="xCol" />
+                  <TableColumn fx:id="yCol" prefWidth="77.0" text="Coordinate y" />
+                  <TableColumn fx:id="creationCol" prefWidth="73.0" text="Creation date" />
+                  <TableColumn fx:id="priceCol" text="Price" />
+                  <TableColumn fx:id="unitCol" prefWidth="78.0" text="Unit of Measure" />
+                  <TableColumn fx:id="ownerCol" prefWidth="58.0" text="Owner" />
+                  <TableColumn fx:id="orhID" prefWidth="61.0" text="Organization ID" />
+                  <TableColumn fx:id="manufacturerCol" prefWidth="88.0" text="Manufacturer" />
+                  <TableColumn fx:id="fullName" prefWidth="117.0" text="Full organization name" />
+                  <TableColumn fx:id="orgType" prefWidth="75.0" text="Organization Type" />
+                  <TableColumn fx:id="orgStreet" prefWidth="96.0" text="Organization street" />
+                  <TableColumn fx:id="orgX" minWidth="0.0" prefWidth="69.0" text="Organization X coordinate" />
+                  <TableColumn fx:id="orgY" prefWidth="105.0" text="Organization Y coordinate" />
+                  <TableColumn fx:id="orgZ" prefWidth="75.0" text="Organization Z coordinate" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="142.0" layoutY="54.0" prefHeight="230.0" prefWidth="316.0" />
+   </children>
+</AnchorPane>

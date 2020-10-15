@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class RequestManager {
 
-    public static void makeRequest(Command command, String[] args){
+    public static Reply makeRequest(Command command, String[] args){
 
         Command cmd = null;
         try {
@@ -29,13 +29,13 @@ public class RequestManager {
             try {
                 String res = command.execute(args);
                 if (res != null) {
-                    System.out.println(res);
+                    return new Reply(null,res);
                 }
             }
             catch (IOException e){
                 System.out.println("Wrong arguments");
+                return null;
             }
-            return;
         }
         if (command instanceof Preparable){
             if (cmd != null) {
@@ -57,7 +57,7 @@ public class RequestManager {
                     System.out.println("User already exist, please use log in.");
                     break;
             }
-            return;
+            return result;
         }
         if (result != null) {
             if (result.getAnswer() != null) System.out.println(result.getAnswer());
@@ -70,7 +70,8 @@ public class RequestManager {
                     }
                 });
             }
+            return result;
         }
-
+        return  null;
     }
 }

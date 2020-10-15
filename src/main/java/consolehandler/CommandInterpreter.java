@@ -1,6 +1,7 @@
 package consolehandler;
 
 
+import clientserverdata.Reply;
 import consolehandler.cmdLists.CommandList;
 import consolehandler.cmdLists.StdCommandList;
 
@@ -24,9 +25,10 @@ public class CommandInterpreter implements Interpreter {
      * and then interpret command according to the current Command List
      * @param args Command
      * @throws IOException If an I/O error occurs
+     * @return
      */
     @Override
-    public void handle(String[] args) throws IOException {
+    public Reply handle(String[] args) throws IOException {
             if (cmdList.getCommands().containsKey(args[0])) {
                 CommandController.getCommandHistory().addCommand(cmdList.getCommands().get(args[0]).toString());
                 try {
@@ -50,6 +52,7 @@ public class CommandInterpreter implements Interpreter {
             else {
                 System.out.println("There is no such command. Enter help to see a list of available commands ..");
             }
+            return null;
         }
 
     /**
