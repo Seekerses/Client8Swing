@@ -1,24 +1,28 @@
 package controllers;
 
-import client.ClientController;
 import client.RequestManager;
-import clientserverdata.User;
+import client.UserSession;
+import clientserverdata.Reply;
+import cmd.Command;
 import cmd.CommandUpdate;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import consolehandler.ClientInterpreter;
+import cmd.Registerable;
 import consolehandler.TableController;
-import controllers.data.FxOrganization;
+import consolehandler.cmdLists.StdCommandList;
 import controllers.data.FxProduct;
 import controllers.data.TableFiller;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -28,15 +32,18 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.FloatStringConverter;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LongStringConverter;
 import productdata.*;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class MainWindow {
@@ -613,6 +620,13 @@ public class MainWindow {
 
             }
         });
+
+        ObservableList<String> commands = FXCollections.observableArrayList("help","insert", "remove_key",
+                "clear", "execute_script", "exit", "filter_less_than_manufacturer", "replace_if_greater",
+                "info", "group_counting_by_coordinates", "show", "history","min_by_name","remove_lower", "login", "register");
+        commandInput.setItems(commands);
+
+        usernameText.setText(UserSession.getLogin());
     }
 
     private String organizationName = null;
@@ -650,10 +664,8 @@ public class MainWindow {
                 product.setManufacturer(org);
                 CommandUpdate cmd = new CommandUpdate(product);
                 RequestManager.makePreparedRequest(cmd);
-            } catch (TooLargeFullName tooLargeFullName) {
-                tooLargeFullName.printStackTrace();
-            } catch (NotUniqueFullName notUniqueFullName) {
-                notUniqueFullName.printStackTrace();
+            } catch (TooLargeFullName | NotUniqueFullName tooLargeFullName) {
+                TableFiller.fill();
             }
 
         }
@@ -692,13 +704,15 @@ public class MainWindow {
     @FXML
     private GridPane visualBox;
 
+    private HashMap<TextArea, FxProduct> map;
+
     public void updateVisual(){
 
         int i = 0;
         int j = 0;
-        System.out.println("het");
+        map = new HashMap<>();
         visualBox.getChildren().clear();
-        visualBox.getRowConstraints().clear();
+        visualBox.gridLinesVisibleProperty().setValue(true);
         visualBox.getRowConstraints().add(new RowConstraints(100));
         Iterator<FxProduct> iterator = table.getItems().iterator();
         FxProduct product = null;
@@ -709,12 +723,37 @@ public class MainWindow {
                 i = 0;
             }
             product = iterator.next();
-            Canvas canvas = new Canvas(50,50);
+            Tooltip tooltip = new Tooltip();
+            double code = 0;
+                    for (byte a : product.getOriginal().getOwner().getUsername().getBytes()){
+                        code += (double) a;
+                    }
+            code = code / (product.getOriginal().getOwner().getUsername().getBytes().length * 127);
+            ;
+            tooltip.setText(product.getOriginal().toString());
+            TextArea area = new TextArea();
+            area.setTooltip(tooltip);
+            area.setEditable(false);
+            map.put(area,product);
+            area.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    FxProduct product1 = map.get((TextArea) event.getSource());
+                    System.out.println(product1.toString());
+                    table.scrollTo(map.get((TextArea) event.getSource()));
+                    table.getSelectionModel().select(product1);
+                    System.out.println(table.getItems().indexOf(product1));
+                    table.requestFocus();
+                }
+            });
+            visualBox.add(area,i,j);
+            Canvas canvas = new Canvas(40,40);
+
             GraphicsContext ctx = canvas.getGraphicsContext2D();
+            ctx.setStroke(Color.color(code,code,code));
             ctx.beginPath();
-            ctx.setLineWidth(3);
-            ctx.moveTo(product.getCoordinates().getX()*10,0);
-            ctx.lineTo(product.getCoordinates().getY()*10,0);
+            ctx.setLineWidth(15);
+            ctx.moveTo(product.getCoordinates().getX(),0);
+            ctx.lineTo(product.getCoordinates().getY(),0);
             ctx.moveTo(product.getCoordinates().getX(),0);
             ctx.stroke();
             visualBox.add(canvas,i,j);
@@ -725,5 +764,57 @@ public class MainWindow {
     }
 
     @FXML
-    private Canvas temp;
+    private ComboBox<String> commandInput;
+
+    @FXML
+    private TextField argumentsInput;
+
+    @FXML
+    private Button sendButton;
+
+    @FXML
+    private TextArea resultOutput;
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Text usernameText;
+
+
+    @FXML
+    void executeCommand(ActionEvent event) {
+
+        Command cmd = StdCommandList.getCommand(commandInput.getValue());
+        String[] args = argumentsInput.getText().split(" ");
+        Reply result = null;
+        if ("".equals(argumentsInput.getText())) args = null;
+        try {
+            result = RequestManager.makeRequest(cmd,args);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        resultOutput.setText(result != null ? result.getAnswer() : null);
+
+        if(cmd instanceof Registerable){
+            if ("Approved".equals((result != null ? result.getAnswer().split(",") : new String[0])[0])){
+                usernameText.setText(UserSession.getLogin());
+            }
+        }
+    }
+
+    @FXML
+    void addProduct(ActionEvent event) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/gui/fxmls/addDialog.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setTitle("Lab 7 Reg");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }

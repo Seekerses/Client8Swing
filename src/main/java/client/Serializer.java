@@ -29,6 +29,7 @@ class Serializer {
     static Reply deserialize(byte[] data) {
         try{
             if (data.length>0) {
+                System.out.println("data" + Arrays.toString(data));
                 ObjectInput ois = null;
                 Reply answ = null;
                 try (ByteArrayInputStream bais = new ByteArrayInputStream(data)) {
@@ -37,18 +38,18 @@ class Serializer {
                 }catch (EOFException e){
                     assert ois != null;
                     ois.close();
+                }catch (Exception e){
+                    System.out.println("Error in" + Arrays.toString(data));
                 }
-                ois.close();
+                if (ois != null) {
+                    ois.close();
+                }
                 return answ;
             }
         }
         catch (IOException ioException) {
             System.out.println("Oh no, some IO exception occurs.");
             ioException.printStackTrace();
-        }
-        catch (ClassNotFoundException classNotFoundException){
-            System.out.println("An unknown format response was received from the server, " +
-                    "please change the connection to the correct server.");
         }
         return null;
     }

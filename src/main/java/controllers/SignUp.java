@@ -131,7 +131,6 @@ public class SignUp {
         Reply result = interpreter.handle(new String[] {"register", loginvalue.getText(), password.getText()});
         if ("Approved".equals(result.getAnswer().split(",")[0])){
             Parent root = null;
-            System.out.println("ddd");
             try {
                 root = FXMLLoader.load(getClass().getResource("/gui/fxmls/mainWindow.fxml"));
             } catch (IOException e) {

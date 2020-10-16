@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="696.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddDialog">
+   <children>
+      <Text layoutX="63.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Key:" textAlignment="RIGHT" wrappingWidth="48.0556640625" />
+      <Text layoutX="70.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+      <Text layoutX="77.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" />
+      <Text layoutX="26.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coordinate x:" />
+      <Text layoutX="26.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coordinate y:" />
+      <Text layoutX="9.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit of measure:" />
+      <TextField fx:id="key" layoutX="123.0" layoutY="21.0" />
+      <TextField fx:id="name" layoutX="123.0" layoutY="64.0" />
+      <TextField fx:id="price" disable="true" layoutX="123.0" layoutY="111.0" />
+      <TextField layoutX="123.0" layoutY="154.0" fx:id="xCoord" />
+      <TextField fx:id="yCoord" layoutX="123.0" layoutY="200.0" />
+      <CheckBox fx:id="priceButton" layoutX="326.0" layoutY="116.0" mnemonicParsing="false" onAction="#addPrice" />
+      <ComboBox fx:id="units" layoutX="141.0" layoutY="250.0" prefWidth="150.0" />
+      <TextField fx:id="orgName" disable="true" layoutX="123.0" layoutY="309.0" />
+      <Text layoutX="24.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manufacturer:" />
+      <CheckBox fx:id="addOrg" layoutX="326.0" layoutY="314.0" mnemonicParsing="false" onAction="#addOrg" />
+      <Text layoutX="26.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organization full name:" />
+      <TextField fx:id="fullName" disable="true" layoutX="18.0" layoutY="409.0" />
+      <Text layoutX="42.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organization type:" />
+      <ComboBox fx:id="type" disable="true" layoutX="28.0" layoutY="494.0" prefWidth="150.0" />
+      <Text layoutX="58.0" layoutY="560.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal adress:" />
+      <TextField fx:id="postalAddress" disable="true" layoutX="18.0" layoutY="582.0" />
+      <CheckBox fx:id="adressButton" disable="true" layoutX="164.0" layoutY="543.0" mnemonicParsing="false" onAction="#addAddress" />
+      <Text layoutX="296.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X coordinate:" />
+      <TextField disable="true" layoutX="233.0" layoutY="409.0" fx:id="xLoc" />
+      <Text layoutX="296.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y coordinate:" />
+      <TextField fx:id="yLoc" disable="true" layoutX="233.0" layoutY="494.0" />
+      <Text layoutX="296.0" layoutY="560.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Z coordinate:" />
+      <TextField fx:id="zLoc" disable="true" layoutX="233.0" layoutY="582.0" />
+      <Text layoutX="63.0" layoutY="653.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" />
+      <CheckBox fx:id="loc" disable="true" layoutX="164.0" layoutY="637.0" mnemonicParsing="false" onAction="#addLocatin" />
+      <Button fx:id="insertButton" layoutX="310.0" layoutY="632.0" mnemonicParsing="false" onAction="#insert" text="Add" />
+   </children>
+</AnchorPane>

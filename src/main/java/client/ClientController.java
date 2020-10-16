@@ -31,6 +31,11 @@ public class ClientController {
             reply = receiver.getReply(clientSocket);
         }
         catch(SocketTimeoutException e){
+            try {
+                reboot();
+            } catch (SocketException ex) {
+                ex.printStackTrace();
+            }
             System.out.println("Server is not responding, please, try again later or change connection.");
             return null;
         }
@@ -39,6 +44,12 @@ public class ClientController {
         }
         assert reply != null;
         return Serializer.deserialize(reply);
+    }
+
+    public static void reboot() throws SocketException {
+        InetSocketAddress address = (InetSocketAddress) clientSocket.getLocalSocketAddress();
+        clientSocket.close();
+        clientSocket = new DatagramSocket(address);
     }
 
     public static boolean connect(){

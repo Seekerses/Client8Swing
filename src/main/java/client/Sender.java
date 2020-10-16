@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 class Sender {
@@ -24,7 +25,10 @@ class Sender {
         ClientController.getClientSocket().receive(handle);
         Reply newAdr = Serializer.deserialize(handle.getData());
         ClientController.setTempPort(ClientController.getDestPort());
-        ClientController.setDestPort(Integer.parseInt(newAdr.getAnswer().split(":")[1]));
+        if (newAdr != null){
+            ClientController.setDestPort(Integer.parseInt(newAdr.getAnswer().split(":")[1]));
+        }
+        else throw new SocketTimeoutException();
 
         while(!last) {
             if (data.length > 1024) {

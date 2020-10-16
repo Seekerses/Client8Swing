@@ -14,8 +14,10 @@ public class UpdateController implements Runnable {
     @Override
     public void run() {
 
+        DatagramSocket updaterSocket = null;
+        
         try {
-            DatagramSocket updaterSocket = new DatagramSocket(ClientController.getPort()+1);
+            updaterSocket = new DatagramSocket(ClientController.getPort()+1);
             updaterSocket.setSoTimeout(0);
 
             while(true) {
@@ -27,7 +29,9 @@ public class UpdateController implements Runnable {
                 Receiver receiver = new Receiver();
                 Reply update = Serializer.deserialize(receiver.getReply(updaterSocket,true));
 
-                TableController.getCurrentTable().setTable(update.getProducts());
+                if (update != null){
+                    TableController.getCurrentTable().setTable(update.getProducts());
+                }
 
                 System.out.println("Table updated");
                 TableFiller.fill();
@@ -35,8 +39,12 @@ public class UpdateController implements Runnable {
         } catch (SocketException e) {
             System.out.println("Troubles with updater.");
         } catch (IOException e) {
+            
             e.printStackTrace();
             run();
+        }
+        finally {
+            updaterSocket.close();
         }
     }
 

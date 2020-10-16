@@ -72,30 +72,9 @@ public class ReaderProductBuilder {
         try {
             if(reader.readLine().equals("yes")) {
                 while (true) {
-                    System.out.println("Assign from existing ? \n yes \n any words to no");
                     try {
-                        if (reader.readLine().equals("yes")) {
-                            String key;
-                            System.out.println("Choose from the list: ");
-                            UniqueController.getOrgTable().forEach((k, v) -> System.out.println(k));
-                            try {
-                                key = reader.readLine();
-                            } catch (Exception e) {
-                                System.out.println("Error: invalid value.");
-                                continue;
-                            }
-                            try {
-                                manufacturer = UniqueController.get(key);
-                                break;
-                            }
-                            catch (Exception e){
-                                System.out.println("Such a company is not listed");
-                            }
-                        }
-                        else {
                             manufacturer = buildOrganization(reader);
                             break;
-                        }
                     } catch (Exception e) {
                         System.out.println("Error: invalid value.");
                     }

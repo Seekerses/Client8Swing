@@ -25,6 +25,14 @@ public class CommandAdd implements Command, Preparable, Serializable {
     String key;
     private static final long serialVersionUID = 1337000000L;
 
+    public CommandAdd(){
+    }
+
+    public CommandAdd(Product product, String key){
+        this.product = product;
+        this.key = key;
+    }
+
     /**
      * insert product to hashtable
      *
@@ -58,24 +66,25 @@ public class CommandAdd implements Command, Preparable, Serializable {
     public void prepare(String[] args) {
         login = UserSession.getLogin();
         password = UserSession.getPassword();
-        if (args == null) {
-            String key;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            try {
-                do {
-                    System.out.println(" Enter product key: ");
-                    key = reader.readLine();
-                    if (key == null) System.out.println("Error: null key.");
-                } while (key == null);
-                this.key = key;
-                this.product = ReaderProductBuilder.buildProduct(reader);
-            } catch (Exception e) {
-                System.out.println("Key is null, please try again with valid key...");
+        if (product == null) {
+            if (args == null) {
+                String key;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                try {
+                    do {
+                        System.out.println(" Enter product key: ");
+                        key = reader.readLine();
+                        if (key == null) System.out.println("Error: null key.");
+                    } while (key == null);
+                    this.key = key;
+                    this.product = ReaderProductBuilder.buildProduct(reader);
+                } catch (Exception e) {
+                    System.out.println("Key is null, please try again with valid key...");
+                }
+            } else {
+                this.product = Initializer.build(args);
+                this.key = args[0];
             }
-        }
-        else{
-            this.product = Initializer.build(args);
-            this.key = args[0];
         }
     }
 
