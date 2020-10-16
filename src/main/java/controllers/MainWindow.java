@@ -13,16 +13,21 @@ import controllers.data.TableFiller;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
-import javafx.scene.control.TableView;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
@@ -32,6 +37,7 @@ import javafx.util.converter.LongStringConverter;
 import productdata.*;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 
 public class MainWindow {
 
@@ -597,6 +603,16 @@ public class MainWindow {
         });
 
         TableFiller.fill();
+        updateVisual();
+        table.getItems().addListener(new ListChangeListener<FxProduct>() {
+            @Override
+            public void onChanged(Change<? extends FxProduct> c) {
+                Platform.runLater(() ->{
+                    updateVisual();
+                });
+
+            }
+        });
     }
 
     private String organizationName = null;
@@ -669,4 +685,45 @@ public class MainWindow {
             }
         }
     }
+
+    @FXML
+    private ScrollPane scroll;
+
+    @FXML
+    private GridPane visualBox;
+
+    public void updateVisual(){
+
+        int i = 0;
+        int j = 0;
+        System.out.println("het");
+        visualBox.getChildren().clear();
+        visualBox.getRowConstraints().clear();
+        visualBox.getRowConstraints().add(new RowConstraints(100));
+        Iterator<FxProduct> iterator = table.getItems().iterator();
+        FxProduct product = null;
+        while(iterator.hasNext()){
+            if (i > 2){
+                visualBox.getRowConstraints().add(new RowConstraints(100));
+                j++;
+                i = 0;
+            }
+            product = iterator.next();
+            Canvas canvas = new Canvas(50,50);
+            GraphicsContext ctx = canvas.getGraphicsContext2D();
+            ctx.beginPath();
+            ctx.setLineWidth(3);
+            ctx.moveTo(product.getCoordinates().getX()*10,0);
+            ctx.lineTo(product.getCoordinates().getY()*10,0);
+            ctx.moveTo(product.getCoordinates().getX(),0);
+            ctx.stroke();
+            visualBox.add(canvas,i,j);
+            i++;
+        }
+
+
+    }
+
+    @FXML
+    private Canvas temp;
 }

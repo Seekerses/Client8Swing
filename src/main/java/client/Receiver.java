@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 class Receiver {
 
-    byte[] getReply(DatagramSocket socket) throws IOException {
+    byte[] getReply(DatagramSocket socket, boolean... args) throws IOException {
 
         byte[] buf = new byte[1024]; //buffer for coming bytes
         byte[] clear = new byte[1024]; //std buffer for "everything OK"  reply
@@ -32,6 +32,8 @@ class Receiver {
         while (true) {
 
             socket.receive(fromServer);
+            if(args != null){
+            }
             if (Arrays.equals(fromServer.getData(), done)) {
                 socket.send(toServer);
                 break;

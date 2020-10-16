@@ -1,6 +1,7 @@
 package controllers.data;
 
 import consolehandler.TableController;
+import controllers.MainWindow;
 import javafx.application.Platform;
 
 import java.util.ArrayList;

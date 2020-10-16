@@ -25,7 +25,7 @@ public class UpdateController implements Runnable {
                 updaterSocket.receive(fromServer);
 
                 Receiver receiver = new Receiver();
-                Reply update = Serializer.deserialize(receiver.getReply(updaterSocket));
+                Reply update = Serializer.deserialize(receiver.getReply(updaterSocket,true));
 
                 TableController.getCurrentTable().setTable(update.getProducts());
 
@@ -34,7 +34,6 @@ public class UpdateController implements Runnable {
             }
         } catch (SocketException e) {
             System.out.println("Troubles with updater.");
-            run();
         } catch (IOException e) {
             e.printStackTrace();
             run();
