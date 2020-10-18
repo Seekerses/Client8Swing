@@ -1,5 +1,4 @@
 package productdata;
-import controllers.data.FxOrganization;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -112,13 +111,6 @@ public class Organization implements Serializable {
         orgId = value;
     }
 
-    public FxOrganization getFxOrganization(){
-        return new FxOrganization(new SimpleIntegerProperty(id),
-                new SimpleStringProperty(name),
-                new SimpleStringProperty(fullName),
-                new SimpleObjectProperty<>(type),
-                new SimpleObjectProperty<>(postalAddress == null ? null : postalAddress.getFxAdress()));
-    }
 
     public void setName(String name) {
         this.name = name;

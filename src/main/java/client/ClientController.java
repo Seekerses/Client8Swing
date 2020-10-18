@@ -57,8 +57,9 @@ public class ClientController {
             clientSocket = new DatagramSocket(port);
             clientSocket.setSoTimeout(5000);
             setDestIP("localhost");
-            new Thread(new UpdateController()).start();
-            Thread.sleep(1000);
+            Thread updater = new Thread(new UpdateController());
+            updater.start();
+            updater.join();
             if(sendConnectingHandshake()){
                  System.out.println("Connection stabled.");
                  return true;

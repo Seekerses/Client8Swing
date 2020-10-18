@@ -1,6 +1,5 @@
 package consolehandler;
 
-import controllers.data.FxProduct;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -16,7 +15,6 @@ public class TableController {
      * Keeps the Current table
      */
     private static TableManager currentTable;
-    private static ObservableList<FxProduct> fxproducts;
 
     /**
      * Contains all existed tablesz
@@ -57,11 +55,4 @@ public class TableController {
         return tables.get(key);
     }
 
-    public static ObservableList<FxProduct> getFxProducts() {
-        return fxproducts;
-    }
-
-    public static void setFxProducts(ObservableList<FxProduct> fxproducts) {
-        TableController.fxproducts = fxproducts;
-    }
 }

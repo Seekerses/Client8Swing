@@ -1,5 +1,4 @@
 package productdata;
-import controllers.data.FxCoordinates;
 import exceptions.InvalidYCoordinate;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -57,10 +56,6 @@ public class Coordinates implements Serializable {
         return y;
     }
 
-    public FxCoordinates getFxCoordinates(){
-        return new FxCoordinates(new SimpleDoubleProperty(x),
-                new SimpleIntegerProperty(y));
-    }
 
     public void setX(double x) {
         this.x = x;
