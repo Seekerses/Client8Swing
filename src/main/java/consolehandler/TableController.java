@@ -1,9 +1,5 @@
 package consolehandler;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-
 import java.util.Hashtable;
 
 /**

@@ -10,6 +10,7 @@ import client.UserSession;
 import clientserverdata.Reply;
 import cmd.Command;
 import cmd.Registerable;
+import consolehandler.Outputer;
 import consolehandler.TableController;
 import consolehandler.cmdLists.StdCommandList;
 import productdata.Product;
@@ -22,6 +23,7 @@ import javax.swing.text.TableView;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Locale;
 
 /**
  *
@@ -45,6 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+        Outputer.setCurrent(new Locale("ru"));
 
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -75,9 +78,9 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setViewportView(table);
         table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel1.setText("User:");
+        jLabel1.setText(Outputer.getString("User"));
 
-        jLabel2.setText("Command");
+        jLabel2.setText(Outputer.getString("Command"));
 
         command.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "help","insert", "remove_key",
                 "clear", "execute_script", "exit", "filter_less_than_manufacturer", "replace_if_greater",
@@ -91,7 +94,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         argumnets.setText("");
 
-        completeButton.setText("Complete");
+        completeButton.setText(Outputer.getString("Complete"));
         completeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 completeButtonActionPerformed(evt);
@@ -104,7 +107,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         userLogin.setText(UserSession.getLogin());
 
-        addProduct.setText("Add");
+        addProduct.setText(Outputer.getString("Add"));
         addProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addProductActionPerformed(evt);

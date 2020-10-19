@@ -8,6 +8,9 @@ package gui;
 import client.ClientController;
 import clientserverdata.Reply;
 import consolehandler.ClientInterpreter;
+import consolehandler.Outputer;
+
+import java.util.Locale;
 
 /**
  *
@@ -30,6 +33,7 @@ public class Registration extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+        Outputer.setCurrent(new Locale("ru"));
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -51,26 +55,26 @@ public class Registration extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Local port:");
+        jLabel1.setText(Outputer.getString("LocalPort"));
 
-        jLabel2.setText("Remote port:");
+        jLabel2.setText(Outputer.getString("RemotePort"));
 
-        status.setText("Status");
+        status.setText(Outputer.getString("Status"));
 
         login.setEnabled(false);
 
-        loginText.setText("Login");
+        loginText.setText(Outputer.getString("Login"));
 
-        passwordText.setText("Password");
+        passwordText.setText(Outputer.getString("Password"));
 
-        connect.setText("Connect");
+        connect.setText(Outputer.getString("Connect"));
         connect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 connectActionPerformed(evt);
             }
         });
 
-        signIn.setText("Sign In");
+        signIn.setText(Outputer.getString("SignIn"));
         signIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signInActionPerformed(evt);
@@ -78,7 +82,7 @@ public class Registration extends javax.swing.JFrame {
         });
         signIn.setEnabled(false);
 
-        signUp.setText("Sign Up");
+        signUp.setText(Outputer.getString("SignUp"));
         signUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpActionPerformed(evt);
@@ -157,20 +161,20 @@ public class Registration extends javax.swing.JFrame {
             ClientController.setPort(Integer.parseInt(loocalPort.getText()));
             ClientController.setDestPort(Integer.parseInt(remotePort.getText()));
             if (ClientController.connect()) {
-                status.setText("Connection stabled!");
+                status.setText(Outputer.getString("ConnectionStabled"));
                 login.setEnabled(true);
                 password.setEnabled(true);
                 signUp.setEnabled(true);
                 signIn.setEnabled(true);
             } else {
-                status.setText("Connection failed!");
+                status.setText(Outputer.getString("ConnectionFailed"));
                 login.setEnabled(false);
                 password.setEnabled(false);
                 signUp.setEnabled(false);
                 signIn.setEnabled(false);
             }
         }catch (Exception e){
-            status.setText("Wrong input!");
+            status.setText(Outputer.getString("WrongInput"));
         }
         status.setVisible(true);
     }

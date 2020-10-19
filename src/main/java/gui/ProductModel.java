@@ -1,6 +1,7 @@
 package gui;
 
 import clientserverdata.User;
+import consolehandler.Outputer;
 import consolehandler.TableController;
 import productdata.OrganizationType;
 import productdata.Product;
@@ -124,13 +125,13 @@ public class ProductModel implements TableModel {
             case 2:
                 return product.getName();
             case 3:
-                return product.getCoordinates().getX();
+                return Outputer.getNumber(product.getCoordinates().getX());
             case 4:
-                return product.getCoordinates().getY();
+                return Outputer.getNumber(product.getCoordinates().getY());
             case 5:
-                return product.getCreationDate();
+                return Outputer.getDate(product.getCreationDate());
             case 6:
-                return product.getPrice();
+                return Outputer.getNumber(product.getPrice());
             case 8:
                 return product.getOwner().getUsername();
             case 7:
@@ -149,15 +150,15 @@ public class ProductModel implements TableModel {
             case 14:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getX());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getX()));
             case 15:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getY());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getY()));
             case 16:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getZ());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getZ()));
         }
         return "";
     }

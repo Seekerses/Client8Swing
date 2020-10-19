@@ -1,9 +1,7 @@
 package productdata;
+import consolehandler.Outputer;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 import java.io.Serializable;
 
@@ -91,9 +89,9 @@ public class Organization implements Serializable {
 
     @Override
     public String toString(){
-        return ("ID : " + id + " Name: " + name
-                + " Full Name: " + fullName + " Type: " + (type == null ? "not indicated" : type.toString())
-                + " Address :" + (postalAddress == null ? "not indicated" : postalAddress.toString()));
+        return ("ID : " + id + Outputer.getString("OrgName") + name
+                + Outputer.getString("OrgFullName") + fullName + Outputer.getString("OrgType") + (type == null ? Outputer.getString("NoValue") : type.toString())
+                + Outputer.getString("OrgAddress") + (postalAddress == null ? Outputer.getString("NoValue") : postalAddress.toString()));
     }
 
     @Override
@@ -110,7 +108,6 @@ public class Organization implements Serializable {
     public static void setOrgId(int value){
         orgId = value;
     }
-
 
     public void setName(String name) {
         this.name = name;
