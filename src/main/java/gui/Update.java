@@ -12,7 +12,6 @@ import consolehandler.TableController;
 import exceptions.NegativePrice;
 import exceptions.NotUniqueFullName;
 import exceptions.TooLargeFullName;
-import javafx.scene.control.ComboBox;
 import productdata.*;
 
 import javax.swing.*;

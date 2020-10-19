@@ -1,7 +1,6 @@
 package productdata;
 
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import consolehandler.Outputer;
 
 import java.io.Serializable;
 
@@ -27,7 +26,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString(){
-        return (street + ";" + (town == null ? "не указано": town.output()));
+        return (street + ";" + (town == null ? Outputer.getString("NoValue"): town.output()));
     }
 
     @Override
