@@ -7,10 +7,16 @@ package gui;
 
 import client.ClientController;
 import clientserverdata.Reply;
+import cmd.Local;
 import consolehandler.ClientInterpreter;
 import consolehandler.Outputer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.HashMap;
 import java.util.Locale;
+
+import javax.swing.*;
 
 /**
  *
@@ -25,6 +31,8 @@ public class Registration extends javax.swing.JFrame {
         initComponents();
     }
 
+    HashMap<String, Locale> localeMap;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +41,6 @@ public class Registration extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-        Outputer.setCurrent(new Locale("ru"));
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -42,14 +49,14 @@ public class Registration extends javax.swing.JFrame {
         status = new javax.swing.JLabel();
         loocalPort = new javax.swing.JTextField();
         remotePort = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
         login = new javax.swing.JTextField();
         loginText = new javax.swing.JLabel();
         passwordText = new javax.swing.JLabel();
         connect = new javax.swing.JButton();
         signIn = new javax.swing.JButton();
         signUp = new javax.swing.JButton();
-        password = new javax.swing.JPasswordField();
-        password.setEnabled(false);
+        language = new javax.swing.JComboBox<>();
 
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -61,7 +68,11 @@ public class Registration extends javax.swing.JFrame {
 
         status.setText(Outputer.getString("Status"));
 
-        login.setEnabled(false);
+        loocalPort.setText("");
+
+        remotePort.setText("");
+
+        login.setText("");
 
         loginText.setText(Outputer.getString("Login"));
 
@@ -80,7 +91,6 @@ public class Registration extends javax.swing.JFrame {
                 signInActionPerformed(evt);
             }
         });
-        signIn.setEnabled(false);
 
         signUp.setText(Outputer.getString("SignUp"));
         signUp.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +98,31 @@ public class Registration extends javax.swing.JFrame {
                 signUpActionPerformed(evt);
             }
         });
+
+        Locale localeRu = new Locale("ru");
+        Locale localeEn = new Locale("en");
+        Locale localeFr = new Locale("fr");
+        Locale localeNo = new Locale("no");
+        Locale localeDe = new Locale("de");
+
+
+        localeMap = new HashMap<>();
+        localeMap.put("English", localeEn);
+        localeMap.put("Русский", localeRu);
+        localeMap.put("Deutsche", localeDe);
+        localeMap.put("French", localeFr);
+        localeMap.put("Norwegian",localeNo);
+        language.setModel(new DefaultComboBoxModel<String>(new String[] {"English", "Русский", "Deutsche", "French"}));
+        language.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                languageActionPerformed(evt);
+            }
+        });
+
+        signIn.setEnabled(false);
         signUp.setEnabled(false);
+        login.setEnabled(false);
+        password.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,17 +151,24 @@ public class Registration extends javax.swing.JFrame {
                                                                         .addComponent(passwordText)))
                                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(connect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(login)
-                                                        .addComponent(loocalPort, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(password))))
-                                .addContainerGap(112, Short.MAX_VALUE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(connect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(password)
+                                                                .addComponent(login))
+                                                        .addComponent(loocalPort, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
+                                .addContainerGap()
+                                .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(loocalPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1))
@@ -144,8 +185,8 @@ public class Registration extends javax.swing.JFrame {
                                         .addComponent(loginText))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(passwordText)
-                                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passwordText))
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(signIn)
@@ -182,21 +223,34 @@ public class Registration extends javax.swing.JFrame {
     private void signInActionPerformed(java.awt.event.ActionEvent evt) {
         ClientInterpreter interpreter = new ClientInterpreter();
         Reply result = interpreter.handle(new String[] {"login", login.getText(), password.getText()});
-        if ("Approved".equals(result.getAnswer().split(",")[0])) {
+        if (result != null) if ("Approved".equals(result.getAnswer().split(",")[0])) {
             this.setVisible(false);
             MainWindow.main(null);
             this.dispose();
-        }
+        }else status.setText(Outputer.getString("WrongInput"));
     }
 
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {
         ClientInterpreter interpreter = new ClientInterpreter();
         Reply result = interpreter.handle(new String[] {"register", login.getText(), password.getText()});
-        if ("Approved".equals(result.getAnswer().split(",")[0])) {
+        if (result != null) if ("Approved".equals(result.getAnswer().split(",")[0])) {
             this.setVisible(false);
             MainWindow.main(null);
             this.dispose();
         }
+        else status.setText(Outputer.getString("WrongInput"));
+    }
+
+    private void languageActionPerformed(java.awt.event.ActionEvent evt) {
+            Outputer.setCurrent(localeMap.get(language.getSelectedItem() != null ? language.getSelectedItem().toString(): "English"));
+            loginText.setText(Outputer.getString("Login"));
+            passwordText.setText(Outputer.getString("Password"));
+            jLabel1.setText(Outputer.getString("LocalPort"));
+            jLabel2.setText(Outputer.getString("RemotePort"));
+            status.setText(Outputer.getString("Status"));
+            connect.setText(Outputer.getString("Connect"));
+            signUp.setText(Outputer.getString("SignUp"));
+            signIn.setText(Outputer.getString("SignIn"));
     }
 
     /**
@@ -250,5 +304,6 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JButton signIn;
     private javax.swing.JButton signUp;
     private javax.swing.JLabel status;
+    private JComboBox<String> language;
     // End of variables declaration
 }

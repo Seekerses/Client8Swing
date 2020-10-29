@@ -7,7 +7,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Outputer {
-    private static Locale current = Locale.getDefault();
+//    private static Locale current = Locale.getDefault();
+private static Locale current = new Locale("English", "en");
 
     public static String getString(String string){
         ResourceBundle res = ResourceBundle.getBundle("gui", current);

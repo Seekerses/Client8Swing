@@ -39,39 +39,39 @@ public class ProductModel implements TableModel {
     public String getColumnName(int columnIndex) {
         switch (columnIndex){
             case 0 :
-                return "ID";
+                return Outputer.getString("id");
             case 1:
-                return "Key";
+                return Outputer.getString("key");
             case 2:
-                return "Name";
+                return Outputer.getString("name");
             case 3 :
-                return "Coordinate x";
+                return Outputer.getString("CoordinateX"); //
             case 4:
-                return "Coordinate y";
+                return Outputer.getString("CoordinateY"); //
             case 5:
-                return "Creation date";
+                return Outputer.getString("CreationDate"); //
             case 6:
-                return "Price";
+                return Outputer.getString("price");
             case 7:
-                return "Unit of measure";
+                return Outputer.getString("UnitOfMeasure"); //
             case 8:
-                return "Owner";
+                return Outputer.getString("User"); //
             case 9:
-                return "Organization ID";
+                return Outputer.getString("OrgID"); //
             case 10:
-                return "Manufacturer";
+                return Outputer.getString("OrgName"); //
             case 11:
-                return "Organization's full name";
+                return Outputer.getString("OrgFullName"); //
             case 12:
-                return "Organization type";
+                return Outputer.getString("OrgType"); //
             case 13:
-                return "Organization street";
+                return Outputer.getString("OrgAddress"); //
             case 14:
-                return "Organization X coordinate";
+                return Outputer.getString("OrgX"); //
             case 15:
-                return "Organization Y coordinate";
+                return Outputer.getString("OrgY"); //
             case 16:
-                return "Organization Z coordinate";
+                return Outputer.getString("OrgZ"); //
         }
         return "";
     }
@@ -125,13 +125,13 @@ public class ProductModel implements TableModel {
             case 2:
                 return product.getName();
             case 3:
-                return Outputer.getNumber(product.getCoordinates().getX());
+                return product.getCoordinates().getX();
             case 4:
-                return Outputer.getNumber(product.getCoordinates().getY());
+                return product.getCoordinates().getY();
             case 5:
                 return Outputer.getDate(product.getCreationDate());
             case 6:
-                return Outputer.getNumber(product.getPrice());
+                return product.getPrice();
             case 8:
                 return product.getOwner().getUsername();
             case 7:
@@ -150,15 +150,15 @@ public class ProductModel implements TableModel {
             case 14:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getX()));
+                        null : product.getManufacturer().getPostalAddress().getTown().getX());
             case 15:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getY()));
+                        null : product.getManufacturer().getPostalAddress().getTown().getY());
             case 16:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getZ()));
+                        null : product.getManufacturer().getPostalAddress().getTown().getZ());
         }
         return "";
     }

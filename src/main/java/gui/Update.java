@@ -8,6 +8,7 @@ package gui;
 import client.RequestManager;
 import cmd.CommandAdd;
 import cmd.CommandUpdate;
+import consolehandler.Outputer;
 import consolehandler.TableController;
 import exceptions.NegativePrice;
 import exceptions.NotUniqueFullName;
@@ -82,11 +83,11 @@ public class Update extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Name:");
+        jLabel1.setText(Outputer.getString("name"));
 
-        jLabel2.setText("Key:");
+        jLabel2.setText(Outputer.getString("key"));
 
-        jLabel3.setText("Price:");
+        jLabel3.setText(Outputer.getString("price"));
 
 
         priceButton.addActionListener(new java.awt.event.ActionListener() {
@@ -95,15 +96,15 @@ public class Update extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Units of measure:");
+        jLabel5.setText(Outputer.getString("UnitOfMeasure"));
 
         unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "KILOGRAMS", "CENTIMETERS", "PCS", "LITERS", "MILLILITERS" }));
 
-        jLabel6.setText("Coordinate x:");
+        jLabel6.setText(Outputer.getString("CoordinateX"));
 
-        jLabel7.setText("Coordinate y:");
+        jLabel7.setText(Outputer.getString("CoordinateY"));
 
-        jLabel8.setText("Manufacturer:");
+        jLabel8.setText(Outputer.getString("Manufacturer"));
 
         addOrg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,15 +112,15 @@ public class Update extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Organization full name:");
+        jLabel9.setText(Outputer.getString("OrgFullName"));
 
-        jLabel10.setText("Organization type:");
+        jLabel10.setText(Outputer.getString("OrgType"));
 
         type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PUBLIC", "TRUST", "PRIVATE_LIMITED_COMPANY" }));
         type.setSelectedItem("");
 
 
-        jLabel11.setText("Postal adress:");
+        jLabel11.setText(Outputer.getString("OrgAddress"));
 
         addressButton.setEnabled(false);
         addressButton.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +129,7 @@ public class Update extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Location:");
+        jLabel12.setText(Outputer.getString("Location"));
 
         loc.setEnabled(false);
         loc.addActionListener(new java.awt.event.ActionListener() {
@@ -137,19 +138,19 @@ public class Update extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Coordinate x:");
+        jLabel13.setText(Outputer.getString("OrgX"));
 
         xLoc.setEnabled(false);
 
-        jLabel14.setText("Coordinate y:");
+        jLabel14.setText(Outputer.getString("OrgY"));
 
         yLoc.setEnabled(false);
 
-        jLabel15.setText("Coordinate z:");
+        jLabel15.setText(Outputer.getString("OrgZ"));
 
         zLoc.setEnabled(false);
 
-        insertButton.setText("Send");
+        insertButton.setText(Outputer.getString("Send"));
         insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertButtonActionPerformed(evt);

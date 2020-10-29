@@ -46,15 +46,13 @@ public class UpdateController implements Runnable {
                 }
 
                 System.out.println("Table updated");
-                if (UserSession.getMainWindow() == null){
-                    new Thread(() ->{
-                        while (UserSession.getMainWindow() == null){}
-                        EventQueue.invokeLater(() -> {
+                new Thread(() ->{
+                    while (UserSession.getMainWindow() == null){}
+                    EventQueue.invokeLater(() -> {
                             UserSession.getMainWindow().reDraw();
                         });
                     }).start();
                 }
-            }
         }catch (IOException ex){
             System.out.println("Troubles with updater. Updater will restart...");
             run();
