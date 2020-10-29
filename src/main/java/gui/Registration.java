@@ -10,8 +10,6 @@ import clientserverdata.Reply;
 import cmd.Local;
 import consolehandler.ClientInterpreter;
 import consolehandler.Outputer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -108,8 +106,8 @@ public class Registration extends javax.swing.JFrame {
         localeMap = new HashMap<>();
         localeMap.put("English", localeEn);
         localeMap.put("Русский", localeRu);
-        localeMap.put("Turkish", localeIt);
-        localeMap.put("Italy", localeTr);
+        localeMap.put("Turkish", localeTr);
+        localeMap.put("Italy", localeIt);
         language.setModel(new DefaultComboBoxModel<String>(new String[] {"English", "Русский", "Turkish", "Italy"}));
         language.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
