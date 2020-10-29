@@ -21,7 +21,7 @@ public class CommandHelp implements Command, Local {
                 return ("There is no args for this command!");
             }
         }catch (NullPointerException e){
-            return (Outputer.getString("HelpOutput"));
+            return (Outputer.getString("HelpOutput") + "\n" + Outputer.getString("InfoOutput") + "\n" + Outputer.getString("ShowOutput") + "\n" + Outputer.getString("InsertOutput") + "\n" + Outputer.getString("RemoveOutput") + "\n" + Outputer.getString("ScriptOutput") + "\n" + Outputer.getString("LowerOutput") + "\n" + Outputer.getString("GroupOutput") + "\n" + Outputer.getString("ReplaceOutput") + "\n" + Outputer.getString("FilterOutput") + "\n" + Outputer.getString("MinOutput") + "\n" + Outputer.getString("ClearOutput") + "\n" + Outputer.getString("ExitOutput") + "\n" + Outputer.getString("HistoryOutput"));
         }
         return null;
     }
