@@ -120,19 +120,19 @@ public class MainWindow extends javax.swing.JFrame {
         panel.setLayout(new java.awt.GridLayout(1, 3));
         jScrollPane2.setViewportView(panel);
 
+
         Locale localeRu = new Locale("ru");
-        Locale localeEn = new Locale("en");
-        Locale localeFr = new Locale("fr");
-        Locale localeNo = new Locale("no");
-        Locale localeDe = new Locale("de");
+        Locale localeEn = new Locale("en", "USA");
+        Locale localeIt = new Locale("it");
+        Locale localeTr = new Locale("tr");
+
 
         localeMap = new HashMap<>();
         localeMap.put("English", localeEn);
         localeMap.put("Русский", localeRu);
-        localeMap.put("Deutsche", localeDe);
-        localeMap.put("French", localeFr);
-        localeMap.put("Norwegian",localeNo);
-        language.setModel(new DefaultComboBoxModel<String>(new String[] {"English", "Русский", "Deutsche", "French"}));
+        localeMap.put("Turkish", localeIt);
+        localeMap.put("Italy", localeTr);
+        language.setModel(new DefaultComboBoxModel<String>(new String[] {"English", "Русский", "Turkish", "Italy"}));
         language.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 languageActionPerformed(evt);
@@ -322,7 +322,6 @@ public class MainWindow extends javax.swing.JFrame {
 
 
     public void reDraw(){
-        System.out.println("rere");
         table.setModel(new ProductModel(TableController.getCurrentTable().getTable()));
         visualize();
     }

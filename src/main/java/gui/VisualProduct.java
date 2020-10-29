@@ -5,6 +5,7 @@ import productdata.Product;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class VisualProduct extends JComponent {
 
@@ -16,6 +17,7 @@ public class VisualProduct extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g){
+
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setBackground(Color.WHITE);
