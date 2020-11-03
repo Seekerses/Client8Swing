@@ -1,6 +1,7 @@
 package consolehandler;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -14,8 +15,8 @@ public class Outputer {
         return res.getString(string);
     }
 
-    public static String getNumber(Number number){
-        NumberFormat nf = NumberFormat.getInstance(current);
+    public static String  getNumber(Number number){
+        NumberFormat nf = NumberFormat.getNumberInstance(current);
         return nf.format(number);
     }
 

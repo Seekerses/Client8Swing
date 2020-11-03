@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 public class VisualProduct extends JComponent {
 
     private Product product;
+    private int x = 0;
+    private int y = 0;
+    private Timer timer;
 
     public VisualProduct(Product product){
         this.product = product;
@@ -34,8 +37,18 @@ public class VisualProduct extends JComponent {
         }
 
         g2.setColor(new Color(code*2,127-code,code/2));
-        g2.fillRect((int)product.getCoordinates().getX() % 100, product.getCoordinates().getY() % 100, product.getCoordinates().getY(), (int)product.getCoordinates().getX());
-
+        g2.fillRect((int)product.getCoordinates().getX() % 100, product.getCoordinates().getY() % 100,
+                y, x);
+        if (timer == null) timer = new Timer(10, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (x != product.getCoordinates().getX()) x++;
+                if (y != product.getCoordinates().getY()) y++;
+                VisualProduct.this.repaint();
+            }
+        });
+        if (x == 0  && y == 0) timer.start();
+        if ((x == product.getCoordinates().getX() && y == product.getCoordinates().getY()) || (x > 100 && y>100)) timer.stop();
     }
 
     public Product getProduct() {

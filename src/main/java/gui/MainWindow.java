@@ -37,7 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
-        visualize();
+        EventQueue.invokeLater(this::visualize);
     }
 
     /**
@@ -121,17 +121,17 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane2.setViewportView(panel);
 
 
-        Locale localeRu = new Locale("ru");
+        Locale localeRu = new Locale("ru","RU");
         Locale localeEn = new Locale("en", "USA");
-        Locale localeIt = new Locale("it");
-        Locale localeTr = new Locale("tr");
+        Locale localeIt = new Locale("it","IT");
+        Locale localeTr = new Locale("tr","TR");
 
 
         localeMap = new HashMap<>();
         localeMap.put("English", localeEn);
         localeMap.put("Русский", localeRu);
-        localeMap.put("Turkish", localeIt);
-        localeMap.put("Italy", localeTr);
+        localeMap.put("Turkish", localeTr);
+        localeMap.put("Italy", localeIt);
         language.setModel(new DefaultComboBoxModel<String>(new String[] {"English", "Русский", "Turkish", "Italy"}));
         language.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -10,6 +10,7 @@ import productdata.UnitOfMeasure;
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -82,7 +83,7 @@ public class ProductModel implements TableModel {
             case 16 :
             case 14:
             case 0:
-                return Long.class;
+                return String.class;
             case 13:
             case 11:
             case 10:
@@ -90,15 +91,15 @@ public class ProductModel implements TableModel {
             case 1:
                 return String.class;
             case 3 :
-                return Double.class;
+                return String.class;
             case 15:
             case 4:
             case 9:
-                return Integer.class;
+                return String.class;
             case 5:
                 return LocalDateTime.class;
             case 6:
-                return Float.class;
+                return String.class;
             case 7:
                 return UnitOfMeasure.class;
             case 8:
@@ -119,25 +120,25 @@ public class ProductModel implements TableModel {
         Product product = list.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return product.getId();
+                return Outputer.getNumber(product.getId());
             case 1:
                 return TableController.getCurrentTable().getKeyByValue(product);
             case 2:
                 return product.getName();
             case 3:
-                return product.getCoordinates().getX();
+                return Outputer.getNumber(product.getCoordinates().getX());
             case 4:
-                return product.getCoordinates().getY();
+                return Outputer.getNumber(product.getCoordinates().getY());
             case 5:
                 return Outputer.getDate(product.getCreationDate());
             case 6:
-                return product.getPrice();
+                return product.getPrice() == null ? null : Outputer.getNumber(new BigDecimal(product.getPrice()));
             case 8:
                 return product.getOwner().getUsername();
             case 7:
                 return product.getUnitOfMeasure().toString();
             case 9:
-                return (product.getManufacturer() == null ? null : product.getManufacturer().getId());
+                return (product.getManufacturer() == null ? null : Outputer.getNumber(product.getManufacturer().getId()));
             case 10:
                 return (product.getManufacturer() == null ? null : product.getManufacturer().getName());
             case 11:
@@ -150,15 +151,15 @@ public class ProductModel implements TableModel {
             case 14:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getX());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getX()));
             case 15:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getY());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getY()));
             case 16:
                 return (product.getManufacturer() == null || product.getManufacturer().getPostalAddress() == null ||
                         product.getManufacturer().getPostalAddress().getTown() == null ?
-                        null : product.getManufacturer().getPostalAddress().getTown().getZ());
+                        null : Outputer.getNumber(product.getManufacturer().getPostalAddress().getTown().getZ()));
         }
         return "";
     }

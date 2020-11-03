@@ -79,10 +79,10 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return ("ID : " + id + " \n" + Outputer.getString("ProductName") + name + " \n" + Outputer.getString("Coordinates")
-                + coordinates.toString() + " \n" + Outputer.getString("CreationDate") + Outputer.getDate(creationDate)
-                + " \n" + Outputer.getString("Price") + (price == null ? Outputer.getString("NoValue"):Outputer.getNumber(price))+ " \n" + Outputer.getString("UnitOfMeasure")
-                + unitOfMeasure.toString() + " \n" + Outputer.getString("Manufacturer") + (manufacturer == null ? Outputer.getString("NoValue") : manufacturer.toString()));
+        return ("ID : " + id + " \n" + Outputer.getString("ProductName") + ": " + name + " \n" + Outputer.getString("Coordinates") + ": "
+                + coordinates.toString() + " \n" + Outputer.getString("CreationDate") + ": " + Outputer.getDate(creationDate)
+                + " \n" + Outputer.getString("Price") + ": " + (price == null ? Outputer.getString("NoValue"):Outputer.getNumber(price))+ " \n" + Outputer.getString("UnitOfMeasure") + ": "
+                + unitOfMeasure.toString() + " \n" + Outputer.getString("Manufacturer") + ": " + (manufacturer == null ? Outputer.getString("NoValue") : manufacturer.toString()));
     }
 
     /**

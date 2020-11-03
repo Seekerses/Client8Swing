@@ -172,6 +172,7 @@ public class Update extends javax.swing.JFrame {
         yCoord.setText(product.getCoordinates().getY().toString());
         if (product.getPrice() != null){
             price.setText(product.getPrice().toString());
+            priceButton.setSelected(true);
         }else {
             price.setEditable(false);
             price.setEnabled(false);
